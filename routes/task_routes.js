@@ -2,8 +2,7 @@ const express = require("express");
 const Task = require("../models/task");
 const router = express.Router();
 const auth = require("../middlewares/authentication");
-require("dotenv").config();
-
+require("dotenv").config({  path:"./config/.env"  });
 
 
 router.post("/tasks/create", auth , async (req,res) => {

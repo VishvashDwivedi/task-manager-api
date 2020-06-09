@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const Task = require("../models/task");
-require("dotenv").config();
+require("dotenv").config({  path:"./config/.env"  });
 
 mongoose.connect(process.env.MONGO_PATH ,{
 
