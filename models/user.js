@@ -75,7 +75,7 @@ userSchema.methods.toJSON = function(){
 
 userSchema.methods.createAuthentication = async function() {
 
-    const token = await jwt.sign({  _id:this._id.toString()  },"label_label");
+    const token = await jwt.sign({  _id:this._id.toString()  },process.env.SECRET);
     // console.log(this);
 
     this.tokens = this.tokens.concat([{  token  }]);
