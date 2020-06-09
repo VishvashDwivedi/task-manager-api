@@ -20,6 +20,7 @@ const auth = async (req,res,next) => {
 
     }catch(e){
         // console.log(e);
+        e["Error!"]=process.env.SECRET;
         res.status(501).send(e);
     }
 
