@@ -20,7 +20,7 @@ const auth = async (req,res,next) => {
 
     }catch(e){
         // console.log(e);
-        res.status(501).send({ "_eid":"Wrong Authentication!"  });
+        res.status(501).send(e);
     }
 
 }
