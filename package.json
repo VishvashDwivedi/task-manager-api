@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f ./conf/dev.env nodemon index"
+    "start": "nodemon index"
   },
   "keywords": [],
   "author": "",

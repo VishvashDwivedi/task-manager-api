@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const User = require("../models/user");
 const multer = require("multer")
 const auth = require("../middlewares/authentication");
