@@ -2,31 +2,24 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({  path:"./config/.env"  });
 
-
 const auth = async (req,res,next) => {
 
-    try{
+    try {
+        const token = req.header("Authorization").replace("Bearer ","");
+        const decoded_user = await jwt.verify(token , process.env.SECRET);
+        const user = await User.findOne({   _id:decoded_user._id , "tokens.token":token  });
+        if(!user)
+            throw new Error();
 
-    const token = req.header("Authorization").replace("Bearer ","");
-    const dec_user = await jwt.verify(token , process.env.SECRET);
-    // console.log(dec_user);
-    const user = await User.findOne({   _id:dec_user._id , "tokens.token":token  })
-    // console.log(user);
-    if(!user)   throw new Error("Cannot be added ! Account not found !");
+        req.token = token;
+        req.user = user;
+        next();
 
-    req.token = token;
-    req.user = user;
-    next();
-
-    }catch(e){
-        // console.log(e);
-        e["Error!"]=process.env.SECRET;
-        res.status(501).send(e);
+    } catch(e){
+        res.status(401).send({  "_ERR": "Unauthorized"    });
     }
 
 }
-
-
 
 
 module.exports = auth;

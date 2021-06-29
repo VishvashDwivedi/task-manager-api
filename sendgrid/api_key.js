@@ -12,7 +12,6 @@ const sendWelcomemail = (email,name) => {
         html: `<h1> Holla ${name} ! </h1> <br> <h1> WELCOME TO THE TASK MANAGER ! </h1> <br> <h2><i> We welcome you to our fully-deplyed and working task manager application which provides you full functionality to manage your daily tasks !... Hope so you would love the your expereince with us! ...<br> All the best ! </i></h2>`
     
     };
-    
     sgMail.send(msg).catch((e) => console.log(e));
 
 }

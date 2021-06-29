@@ -1,5 +1,4 @@
 require("dotenv").config({  path:"./config/.env"  });
-
 const mongoose = require("mongoose");
 const User = require("./user");
 
@@ -25,11 +24,10 @@ const taskSchema = mongoose.Schema({
         default:false
     },
     owner:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectID,
         required:true,
-        ref:"User",
+        ref:'User',
     }
-
 
 }, {
     timestamps:true

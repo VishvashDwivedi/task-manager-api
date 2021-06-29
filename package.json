@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-        "start":"nodemon index"
+    "start": "nodemon index",
+    "test": "jest"
+  },
+  "jest":{
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +24,11 @@
     "multer": "^1.4.2",
     "nodemon": "^2.0.4",
     "sharp": "^0.25.3",
+    "supertest": "^4.0.2",
     "validator": "^13.0.0"
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "jest": "^26.0.1"
   }
 }

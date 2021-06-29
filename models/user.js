@@ -14,7 +14,6 @@ mongoose.connect(process.env.MONGO_PATH ,{
 
 });
 
-
 const userSchema = mongoose.Schema({
 
     name:{
@@ -54,13 +53,11 @@ const userSchema = mongoose.Schema({
     timestamps:true
 });
 
-
 userSchema.virtual("tasks",{
     ref:"Task",
     localField:"_id",
     foreignField:"owner"
 });
-
 
 userSchema.methods.toJSON = function(){
 
@@ -72,45 +69,50 @@ userSchema.methods.toJSON = function(){
 
 }
 
-
 userSchema.methods.createAuthentication = async function() {
 
-    const token = await jwt.sign({  _id:this._id.toString()  },process.env.SECRET);
-    // console.log(this);
+    // console.log(typeof(this._id.toString()));
+    const token = await jwt.sign
+                ({  _id:this._id.toString()  },
+                    process.env.SECRET,
+                 {  expiresIn: '15 days' });
 
     this.tokens = this.tokens.concat([{  token  }]);
     return token;
 
 }
 
-
 userSchema.statics.checkCredentials = async ( email,password ) => {
 
-
         const user = await User.findOne({  "email":email });
-        if( !user ){
-//            console.log(1);
-            throw new Error("Unable to login !");
+        if( !user ) {
+            const err = new Error();
+            err._ERR = 'User does not exist !';
+            throw err;
         }
 
         const isMatch = await bcrypt.compare(password,user.password);
-        if(!isMatch)    throw new Error("Unable to login !");
+        if(!isMatch) {
+            const err = new Error();
+            err._ERR = 'Incorrect password !';
+            throw err;
+        }
 
         return user;
 
 }
 
-
-userSchema.pre("save", async function(next){
+userSchema.pre("save", async function(next) {
 
     const user = this
     // console.log(user.password);
     //  console.log(user.isModified("password"));
-    if(user.isModified("password"))     user.password = await bcrypt.hash(user.password,8);
+
+    if(user.isModified("password"))     
+        user.password = await bcrypt.hash(user.password,8);
 
     next();
 });
-
 
 userSchema.pre("remove", async function(next){
 
@@ -119,7 +121,6 @@ userSchema.pre("remove", async function(next){
     next();
 
 });
-
 
 const User = mongoose.model("User",userSchema);
 
