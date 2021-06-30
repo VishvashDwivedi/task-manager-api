@@ -24,7 +24,6 @@ const upload = multer({
 const sharp = require("sharp");
 const {  sendWelcomemail,sendByemail  } = require("../sendgrid/api_key");
 
-
 router.post("/users/login", async (req,res) => {
 
     try{
