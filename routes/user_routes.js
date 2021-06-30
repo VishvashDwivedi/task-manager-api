@@ -85,7 +85,7 @@ router.post("/users/signup", async (req,res) => {
         const user = User(req.body);
         const token = await user.createAuthentication();
         await user.save();
-        // sendWelcomemail(user.email,user.name);
+        sendWelcomemail(user.email,user.name);
         res.status(201).send({  user,token  });
     }
     catch(e) {

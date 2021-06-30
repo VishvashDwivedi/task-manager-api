@@ -1,18 +1,21 @@
 require("dotenv").config({  path:"./config/.env"  });
 const sgMail = require("@sendgrid/mail");
-const apiid = process.env.API_KEY;
+const apiid = process.env.API_KEY2;
 sgMail.setApiKey(apiid);
 
 const sendWelcomemail = (email,name) => {
 
     const msg = {
-        to: email,
+        to: 'vishwashdwivedi26@gmail.com',
         from: 'vishwashdwivedi26@gmail.com',
         subject: 'A WELCOME NOTE !',
         html: `<h1> Holla ${name} ! </h1> <br> <h1> WELCOME TO THE TASK MANAGER ! </h1> <br> <h2><i> We welcome you to our fully-deplyed and working task manager application which provides you full functionality to manage your daily tasks !... Hope so you would love the your expereince with us! ...<br> All the best ! </i></h2>`
     
     };
-    sgMail.send(msg).catch((e) => console.log(e));
+
+    sgMail.send(msg)
+    .then(res => console.log('Email sent !'))
+    .catch((e) => console.log(e));
 
 }
 
