@@ -154,7 +154,7 @@ router.delete("/users/delete", auth, async (req,res) => {
 
     try{
         const user = await req.user.remove();
-        // sendByemail(user.email,user.name);
+        sendByemail(user.email,user.name);
         res.send(user);
     }
     catch(e){
